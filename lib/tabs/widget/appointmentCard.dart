@@ -1,4 +1,3 @@
-import 'package:untitled7/tabs/tab/homeTab.dart';
 import 'package:untitled7/tabs/widget/scheduleCard.dart';
 import 'package:untitled7/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ class AppointmentCard extends StatelessWidget {
                     Row(
                       children: [
                         const CircleAvatar(
-                          backgroundImage: AssetImage('assets/doctor01.jpg'),
+                          backgroundImage: AssetImage('assets/ski_icon.png'),
                         ),
                         const SizedBox(
                           width: 10,
@@ -41,13 +40,13 @@ class AppointmentCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Dr.Aleyna Eser',
+                            const Text('이름',
                                 style: TextStyle(color: Colors.white)),
                             const SizedBox(
                               height: 2,
                             ),
                             Text(
-                              'Dental Specialist',
+                              '정보',
                               style: TextStyle(color: Color(MyColors.text01)),
                             ),
                           ],
