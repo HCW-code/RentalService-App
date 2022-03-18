@@ -37,12 +37,12 @@ class HomeTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '뭘 넣을까말까',
+                  '',
                   style: kTitleStyle,
                 ),
                 TextButton(
                   child: Text(
-                    '의견을 말해보자',
+                    '바로가기',
                     style: TextStyle(
                       color: Color(MyColors.yellow01),
                       fontWeight: FontWeight.bold,
