@@ -29,7 +29,11 @@ class HomeTab extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const SearchInput(),
+            Container(
+                child :SearchInput(),
+                width: 350,
+                height: 50,
+            ),
             const SizedBox(
               height: 20,
             ),

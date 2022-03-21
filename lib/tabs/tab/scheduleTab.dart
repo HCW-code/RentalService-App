@@ -6,8 +6,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 
 class ScheduleTab extends StatefulWidget {
-  const ScheduleTab({Key? key}) : super(key: key);
-
   @override
   State<ScheduleTab> createState() => _ScheduleTabState();
 }
@@ -15,31 +13,27 @@ class ScheduleTab extends StatefulWidget {
 class _ScheduleTabState extends State<ScheduleTab> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       body: SafeArea(
-        child: WebView(
-          initialUrl: 'http://192.168.219.157:3000',
-          javascriptMode: JavascriptMode.unrestricted,
+        child: Stack(
+          children: [
+            WebView(
+              initialUrl: 'http://192.168.35.231:3000/',
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
+            Positioned(
+              top: 30,
+              right: 25,
+              child: Container(
+                child: SearchInput(),
+                width: 350,
+                height: 50,
+              ),
+            ),
+          ],
         ),
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.only(left: 30, top: 30, right: 30),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.stretch,
-      //     children: [
-      //       Text(
-      //         'kakao map web view',
-      //         textAlign: TextAlign.center,
-      //         style: kTitleStyle,
-      //       ),
-      //       const SizedBox(
-      //         height: 20,
-      //       ),
-      //       const SearchInput(),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

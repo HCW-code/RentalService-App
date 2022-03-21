@@ -14,10 +14,6 @@ class UserIntro extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              '',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-            Text(
               'Platform Service',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
