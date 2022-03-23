@@ -1,5 +1,6 @@
 import 'package:untitled7/tabs/widget/appointmentCard.dart';
-import 'package:untitled7/tabs/widget/searchInput.dart';
+import 'package:untitled7/tabs/widget/searchInput_button.dart';
+
 import 'package:untitled7/tabs/widget/userIntro.dart';
 import 'package:untitled7/utils/colors.dart';
 import 'package:untitled7/utils/styles.dart';
@@ -30,32 +31,14 @@ class HomeTab extends StatelessWidget {
               height: 10,
             ),
             Container(
-                child :SearchInput(),
+                child :SearchInputButton(),
                 width: 350,
                 height: 50,
             ),
             const SizedBox(
               height: 20,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '',
-                  style: kTitleStyle,
-                ),
-                TextButton(
-                  child: Text(
-                    '바로가기',
-                    style: TextStyle(
-                      color: Color(MyColors.yellow01),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () {},
-                )
-              ],
-            ),
+
             const SizedBox(
               height: 20,
             ),

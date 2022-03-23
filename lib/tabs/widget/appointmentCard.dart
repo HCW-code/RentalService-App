@@ -29,34 +29,20 @@ class AppointmentCard extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const CircleAvatar(
                           backgroundImage: AssetImage('assets/ski_icon.png'),
+                          radius: 40.0,
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('이름',
-                                style: TextStyle(color: Colors.white)),
-                            const SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              '정보',
-                              style: TextStyle(color: Color(MyColors.text01)),
-                            ),
-                          ],
-                        ),
+                        const Text('장비 렌탈샵\n      \n비교/검색하기',
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+
                       ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const ScheduleCard(),
                   ],
                 ),
               ),

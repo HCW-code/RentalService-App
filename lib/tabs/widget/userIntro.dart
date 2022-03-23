@@ -21,7 +21,7 @@ class UserIntro extends StatelessWidget {
         ),
         const CircleAvatar(
           backgroundImage: AssetImage('assets/ski_icon.png'),
-          radius: 30.0,
+          radius: 20.0,
         ),
       ],
     );

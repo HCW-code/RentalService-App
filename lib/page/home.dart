@@ -29,7 +29,6 @@ class _HomeState extends State<Home> {
       _selectedIndex = 2;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
@@ -37,15 +36,14 @@ class _HomeState extends State<Home> {
         onPressedScheduleCard: goToSchedule,
       ),
       ScheduleTab(),
-      MypageTab()
-
+      MypageTab(),
     ];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(MyColors.primary),
         elevation: 0,
-        toolbarHeight: 0,
+        toolbarHeight: 40,
       ),
       body: SafeArea(
         child: screens[_selectedIndex],
