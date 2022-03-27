@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled7/utils/colors.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class CloudFirestoreSearch extends StatefulWidget {
   @override
@@ -9,12 +10,13 @@ class CloudFirestoreSearch extends StatefulWidget {
 
 class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
   String name = "";
+  WebViewController? _controller;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(MyColors.primary),
+        backgroundColor: Colors.grey[700],
         elevation: 0,
         toolbarHeight: 40,
       ),
@@ -39,10 +41,8 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                     itemBuilder: (context, index){
                       DocumentSnapshot data = snapshot.data!.docs[index];
                       return Container(
-
                           padding: EdgeInsets.only(top:15, left: 15, right: 15),
                           child: Column(
-
                             children: [
                               RaisedButton(
                                 color: Colors.grey[100],
@@ -50,6 +50,10 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
                                 ),
                                 onPressed:() {
+                                  if (_controller != null) {
+                                    _controller!.runJavascriptReturningResult(
+                                        'window.fromFlutter("this is title from Flutter")');
+                                  }
                                 },
                                   child: Row(
                                     children: [
