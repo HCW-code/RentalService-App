@@ -45,7 +45,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
 
                             children: [
                               RaisedButton(
-                                elevation: 10,
+                                color: Colors.grey[100],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
                                 ),

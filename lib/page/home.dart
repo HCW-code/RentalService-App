@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(MyColors.primary),
+        backgroundColor: Colors.grey[700],
         elevation: 0,
         toolbarHeight: 40,
       ),

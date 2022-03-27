@@ -21,7 +21,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
           alignment: Alignment.center,
           children: [
             WebView(
-              initialUrl: 'https://cstone-3dc2f.web.app/',
+              initialUrl: 'http://cstone-3dc2f.web.app/',
               javascriptMode: JavascriptMode.unrestricted,
             ),
             Positioned(

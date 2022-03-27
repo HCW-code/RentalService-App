@@ -17,7 +17,7 @@ class AppointmentCard extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(MyColors.primary),
+            color: Colors.grey[700],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Material(
@@ -37,7 +37,6 @@ class AppointmentCard extends StatelessWidget {
                         ),
                         const Text('장비 렌탈샵\n      \n비교/검색하기',
                                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-
                       ],
                     ),
                     const SizedBox(
