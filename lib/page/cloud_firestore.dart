@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled7/utils/colors.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:untitled7/tabs/tab/scheduleTab.dart';
+import 'package:untitled7/page/home.dart';
 
 class CloudFirestoreSearch extends StatefulWidget {
+
+  const CloudFirestoreSearch({Key? key}) : super(key: key);
   @override
   _CloudFirestoreSearchState createState() => _CloudFirestoreSearchState();
 }
 
 class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
   String name = "";
-  WebViewController? _controller;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,10 +51,18 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
                                 ),
                                 onPressed:() {
-                                  if (_controller != null) {
-                                    _controller!.runJavascriptReturningResult(
-                                        'window.fromFlutter("this is title from Flutter")');
-                                  }
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => Home(
+                                          selectedIndex: 1,
+                                          lat: data['위도'].toString(),
+                                          long: data['경도'].toString(),
+                                          id: data['id'].toString(),
+                                      ),
+                                    ),
+                                        (route) => false,
+                                  );
                                 },
                                   child: Row(
                                     children: [
@@ -71,7 +80,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                               color: Colors.black38,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold)),
-                                          Text(data['number'],
+                                          Text(data['경도'].toString(),
                                             style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 15,)),

@@ -5,10 +5,14 @@ import 'package:untitled7/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final int selectedIndex;
+  final String id;
+  final String lat;
+  final String long;
 
+  const Home({Key? key, required this.selectedIndex, required this.id, required this.lat, required this.long,}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _HomeState createState() => new _HomeState(selectedIndex);
 }
 
 List<Map> navigationBarItems = [
@@ -18,35 +22,42 @@ List<Map> navigationBarItems = [
 ];
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
+  int selectedIndex=1;
+  _HomeState(this.selectedIndex);
+
   void goToSchedule() {
     setState(() {
-      _selectedIndex = 1;
+      selectedIndex = 1;
     });
   }
   void goToMypage() {
     setState(() {
-      _selectedIndex = 2;
+      selectedIndex = 2;
     });
   }
   @override
   Widget build(BuildContext context) {
+
     List<Widget> screens = [
       HomeTab(
         onPressedScheduleCard: goToSchedule,
       ),
-      ScheduleTab(),
+      ScheduleTab(onPressedScheduleCard: goToSchedule,
+          lat: widget.lat,
+          long: widget.long,
+          id: widget.id),
       MypageTab(),
     ];
 
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: Colors.grey[700],
         elevation: 0,
         toolbarHeight: 40,
       ),
       body: SafeArea(
-        child: screens[_selectedIndex],
+        child: screens[selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 0,
@@ -60,7 +71,7 @@ class _HomeState extends State<Home> {
                 height: 55,
                 decoration: BoxDecoration(
                   border: Border(
-                    top: _selectedIndex == navigationBarItem['index']
+                    top: selectedIndex == navigationBarItem['index']
                         ? BorderSide(color: Color(MyColors.bg01), width: 5)
                         : BorderSide.none,
                   ),
@@ -73,9 +84,9 @@ class _HomeState extends State<Home> {
               label: '',
             ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         onTap: (value) => setState(() {
-          _selectedIndex = value;
+          selectedIndex = value;
         }),
       ),
     );

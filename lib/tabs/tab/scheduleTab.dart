@@ -8,29 +8,51 @@ import 'package:untitled7/page/card_detail.dart';
 
 
 class ScheduleTab extends StatefulWidget {
+  final void Function() onPressedScheduleCard;
+  final String id;
+  final String lat;
+  final String long;
+
+
+  const ScheduleTab({
+    Key? key,
+    required this.onPressedScheduleCard,required this.id, required this.lat, required this.long,
+  }) : super(key: key);
+
   @override
   State<ScheduleTab> createState() => _ScheduleTabState();
 }
 
 class _ScheduleTabState extends State<ScheduleTab> {
-  WebViewController? _controller;
+  WebViewController? controller;
   bool clicked = false;
   List list=["name", "name", "name", "name"];
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset : false,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
+
           children: [
             WebView(//웹뷰 및 통신
-              initialUrl: 'http://cstone-3dc2f.web.app/',
+              initialUrl: 'https://cstone-3dc2f.web.app/',
               onWebViewCreated: (WebViewController webviewController) {
-                _controller = webviewController;
+                controller = webviewController;
+                if (controller != null) {
+                  controller!.runJavascriptReturningResult(
+                      'window.fromFlutter("${widget.id},${widget.lat},${widget.long}")');
+
+                  print("${widget.id},${widget.lat},${widget.long}");
+                }
               },
               javascriptMode: JavascriptMode.unrestricted,
+
+
               javascriptChannels: Set.from([
                 JavascriptChannel(
                     name: 'jams',
