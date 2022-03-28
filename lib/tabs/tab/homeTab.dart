@@ -7,7 +7,7 @@ import 'package:untitled7/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatelessWidget  {
   final void Function() onPressedScheduleCard;
 
   const HomeTab({

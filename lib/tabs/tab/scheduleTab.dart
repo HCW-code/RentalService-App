@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:untitled7/utils/colors.dart';
 import 'package:untitled7/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +26,14 @@ class ScheduleTab extends StatefulWidget {
 }
 
 class _ScheduleTabState extends State<ScheduleTab> {
-  WebViewController? controller;
+  WebViewController? _controller;
   bool clicked = false;
   List list=["name", "name", "name", "name"];
 
 
   @override
   Widget build(BuildContext context) {
-
+    String sum = widget.id +","+ widget.long +"," + widget.lat;
     return Scaffold(
       resizeToAvoidBottomInset : false,
       body: SafeArea(
@@ -41,18 +43,20 @@ class _ScheduleTabState extends State<ScheduleTab> {
           children: [
             WebView(//웹뷰 및 통신
               initialUrl: 'https://cstone-3dc2f.web.app/',
-              onWebViewCreated: (WebViewController webviewController) {
-                controller = webviewController;
-                if (controller != null) {
-                  controller!.runJavascriptReturningResult(
-                      'window.fromFlutter("${widget.id},${widget.lat},${widget.long}")');
-
-                  print("${widget.id},${widget.lat},${widget.long}");
-                }
-              },
               javascriptMode: JavascriptMode.unrestricted,
 
+              onWebViewCreated: (WebViewController webviewController) {
+                _controller = webviewController;
 
+                Timer(Duration(seconds: 1), () {
+                  if (_controller != null) {
+                    _controller!.runJavascriptReturningResult(
+                        'window.fromFlutter("${sum}")');
+                        print("${sum}");
+
+                  }
+                });
+              },
               javascriptChannels: Set.from([
                 JavascriptChannel(
                     name: 'jams',
@@ -72,6 +76,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
             Positioned(// 검색 버튼
               top: 30,
               child: Container(
+
                 child: SearchInputButton(),
                 width: 350,
                 height: 50,

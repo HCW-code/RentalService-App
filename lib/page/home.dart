@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
   const Home({Key? key, required this.selectedIndex, required this.id, required this.lat, required this.long,}) : super(key: key);
   @override
-  _HomeState createState() => new _HomeState(selectedIndex);
+  _HomeState createState() => _HomeState(selectedIndex);
 }
 
 List<Map> navigationBarItems = [
@@ -22,14 +22,16 @@ List<Map> navigationBarItems = [
 ];
 
 class _HomeState extends State<Home> {
-  int selectedIndex=1;
+  int selectedIndex=0;
   _HomeState(this.selectedIndex);
+
 
   void goToSchedule() {
     setState(() {
       selectedIndex = 1;
     });
   }
+
   void goToMypage() {
     setState(() {
       selectedIndex = 2;
@@ -38,6 +40,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
+
     List<Widget> screens = [
       HomeTab(
         onPressedScheduleCard: goToSchedule,
@@ -45,7 +48,8 @@ class _HomeState extends State<Home> {
       ScheduleTab(onPressedScheduleCard: goToSchedule,
           lat: widget.lat,
           long: widget.long,
-          id: widget.id),
+          id: widget.id
+      ),
       MypageTab(),
     ];
 
@@ -57,7 +61,7 @@ class _HomeState extends State<Home> {
         toolbarHeight: 40,
       ),
       body: SafeArea(
-        child: screens[selectedIndex],
+        child : screens[selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 0,

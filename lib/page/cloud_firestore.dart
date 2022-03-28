@@ -60,8 +60,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                           long: data['경도'].toString(),
                                           id: data['id'].toString(),
                                       ),
-                                    ),
-                                        (route) => false,
+                                    ), (route) => false,
                                   );
                                 },
                                   child: Row(
