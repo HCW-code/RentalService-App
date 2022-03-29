@@ -41,6 +41,11 @@ class _HomeState extends State<Home> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.grey[700],
+            elevation: 0,
+            toolbarHeight: 40,
+          ),
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: _pages.map( (page) {
@@ -49,7 +54,13 @@ class _HomeState extends State<Home> {
           ).toList(),
         ),
         bottomNavigationBar: TabBar(
+          indicatorPadding: EdgeInsets.only(left: 30.0, right: 30.0),
+          indicatorColor: Colors.grey,
+          //tab 하단 indicator weight
+          indicatorWeight: 5,
+          //label color
           isScrollable: false,
+          labelColor: Colors.grey,
           onTap: (index) => setState(() { _currentIndex = index; }),
           tabs: const [
             Tab( icon: Icon( Icons.home, color: Colors.grey,), text: '홈', ),
