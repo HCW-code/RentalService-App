@@ -5,14 +5,11 @@ import 'package:untitled7/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  final int selectedIndex;
-  final String id;
-  final String lat;
-  final String long;
 
-  const Home({Key? key, required this.selectedIndex, required this.id, required this.lat, required this.long,}) : super(key: key);
+
+  const Home({Key? key}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState(selectedIndex);
+  _HomeState createState() => new _HomeState();
 }
 
 List<Map> navigationBarItems = [
@@ -22,77 +19,59 @@ List<Map> navigationBarItems = [
 ];
 
 class _HomeState extends State<Home> {
-  int selectedIndex=0;
-  _HomeState(this.selectedIndex);
+  final _navigatorKeyList = List.generate(3, (index) => GlobalKey<NavigatorState>());
+  int _currentIndex = 0;
+
+  final _pages = [HomeTab(),
+    ScheduleTab(
+        lat: "0",
+        long: "0",
+        id: "0"),
+    MypageTab(),
+  ];
 
 
-  void goToSchedule() {
-    setState(() {
-      selectedIndex = 1;
-    });
-  }
 
-  void goToMypage() {
-    setState(() {
-      selectedIndex = 2;
-    });
-  }
+
+
+
   @override
   Widget build(BuildContext context) {
 
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+        body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: _pages.map( (page) {
+            return CustomNavigator( page: page);
+          },
+          ).toList(),
+        ),
+        bottomNavigationBar: TabBar(
+          isScrollable: false,
+          onTap: (index) => setState(() { _currentIndex = index; }),
+          tabs: const [
+            Tab( icon: Icon( Icons.home, color: Colors.grey,), text: '홈', ),
+            Tab( icon: Icon( Icons.map, color: Colors.grey,), text: '지도', ),
+            Tab( icon: Icon( Icons.login, color: Colors.grey,), text: '마이페이지', ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-    List<Widget> screens = [
-      HomeTab(
-        onPressedScheduleCard: goToSchedule,
-      ),
-      ScheduleTab(onPressedScheduleCard: goToSchedule,
-          lat: widget.lat,
-          long: widget.long,
-          id: widget.id
-      ),
-      MypageTab(),
-    ];
+class CustomNavigator extends StatefulWidget {
+  final Widget page;
+  const CustomNavigator({Key? key, required this.page}) : super(key: key);
+  @override _CustomNavigatorState createState() => _CustomNavigatorState();
+}
 
-    return Scaffold(
-
-      appBar: AppBar(
-        backgroundColor: Colors.grey[700],
-        elevation: 0,
-        toolbarHeight: 40,
-      ),
-      body: SafeArea(
-        child : screens[selectedIndex],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 0,
-        selectedItemColor: Color(MyColors.primary),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          for (var navigationBarItem in navigationBarItems)
-            BottomNavigationBarItem(
-              icon: Container(
-                height: 55,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: selectedIndex == navigationBarItem['index']
-                        ? BorderSide(color: Color(MyColors.bg01), width: 5)
-                        : BorderSide.none,
-                  ),
-                ),
-                child: Icon(
-                  navigationBarItem['icon'],
-                  color: Color(MyColors.bg01),
-                ),
-              ),
-              label: '',
-            ),
-        ],
-        currentIndex: selectedIndex,
-        onTap: (value) => setState(() {
-          selectedIndex = value;
-        }),
-      ),
+class _CustomNavigatorState extends State<CustomNavigator>{
+  @override Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (_) => MaterialPageRoute(builder: (context) => widget.page),
     );
   }
 }

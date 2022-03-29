@@ -8,11 +8,9 @@ import 'package:flutter/material.dart';
 
 
 class HomeTab extends StatelessWidget  {
-  final void Function() onPressedScheduleCard;
 
   const HomeTab({
     Key? key,
-    required this.onPressedScheduleCard,
   }) : super(key: key);
 
   @override
@@ -30,11 +28,6 @@ class HomeTab extends StatelessWidget  {
             const SizedBox(
               height: 10,
             ),
-            Container(
-                child :SearchInputButton(),
-                width: 350,
-                height: 50,
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -43,7 +36,9 @@ class HomeTab extends StatelessWidget  {
               height: 20,
             ),
             AppointmentCard(
-              onTap: onPressedScheduleCard,
+              onTap: (){
+                DefaultTabController.of(context)?.animateTo(1);
+              }
             ),
             const SizedBox(
               height: 20,

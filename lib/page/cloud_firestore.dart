@@ -54,11 +54,10 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (BuildContext context) => Home(
-                                          selectedIndex: 1,
-                                          lat: data['위도'].toString(),
-                                          long: data['경도'].toString(),
-                                          id: data['id'].toString(),
+                                      builder: (BuildContext context) => ScheduleTab(
+                                        lat: data['위도'].toString(),
+                                        long: data['경도'].toString(),
+                                        id: data['id'].toString(),
                                       ),
                                     ), (route) => false,
                                   );

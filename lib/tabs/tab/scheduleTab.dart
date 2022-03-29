@@ -10,30 +10,28 @@ import 'package:untitled7/page/card_detail.dart';
 
 
 class ScheduleTab extends StatefulWidget {
-  final void Function() onPressedScheduleCard;
   final String id;
   final String lat;
   final String long;
 
 
   const ScheduleTab({
-    Key? key,
-    required this.onPressedScheduleCard,required this.id, required this.lat, required this.long,
+    Key? key,required this.id, required this.lat, required this.long
   }) : super(key: key);
 
   @override
   State<ScheduleTab> createState() => _ScheduleTabState();
 }
 
-class _ScheduleTabState extends State<ScheduleTab> {
+class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClientMixin {
   WebViewController? _controller;
   bool clicked = false;
   List list=["name", "name", "name", "name"];
 
 
   @override
+  bool get wantKeepAlive => true;
   Widget build(BuildContext context) {
-    String sum = widget.id +","+ widget.long +"," + widget.lat;
     return Scaffold(
       resizeToAvoidBottomInset : false,
       body: SafeArea(
@@ -51,9 +49,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                 Timer(Duration(seconds: 1), () {
                   if (_controller != null) {
                     _controller!.runJavascriptReturningResult(
-                        'window.fromFlutter("${sum}")');
-                        print("${sum}");
-
+                        'window.fromFlutter("${widget.id},${widget.long},${widget.lat}")');
                   }
                 });
               },

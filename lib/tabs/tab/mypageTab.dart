@@ -10,9 +10,10 @@ class MypageTab extends StatefulWidget {
   State<MypageTab> createState() => _MypageTabState();
 }
 
-class _MypageTabState extends State<MypageTab> {
+class _MypageTabState extends State<MypageTab> with AutomaticKeepAliveClientMixin {
 
   @override
+  bool get wantKeepAlive => true;
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
