@@ -4,12 +4,19 @@ import 'package:untitled7/utils/colors.dart';
 import 'package:untitled7/page/widget/detailBody.dart';
 
 class Card_Detail extends StatefulWidget {
+  final String name;
+  final String number;
+  final String address;
+
+  const Card_Detail({
+    Key? key,required this.name, required this.number, required this.address
+  }) : super(key: key);
+
   @override
   _Card_Detail createState() => _Card_Detail();
 }
 
 class _Card_Detail extends State<Card_Detail> {
-  String name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +40,8 @@ class _Card_Detail extends State<Card_Detail> {
               ),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: DetailBody(),
+          SliverToBoxAdapter(
+            child: DetailBody(name: widget.name, number: widget.number, address: widget.address),
           )
         ],
       ),

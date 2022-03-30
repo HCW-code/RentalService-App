@@ -30,22 +30,12 @@ class _HomeState extends State<Home> {
     MypageTab(),
   ];
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.grey[700],
-            elevation: 0,
-            toolbarHeight: 40,
-          ),
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: _pages.map( (page) {
@@ -63,9 +53,9 @@ class _HomeState extends State<Home> {
           labelColor: Colors.grey,
           onTap: (index) => setState(() { _currentIndex = index; }),
           tabs: const [
-            Tab( icon: Icon( Icons.home, color: Colors.grey,), text: '홈', ),
-            Tab( icon: Icon( Icons.map, color: Colors.grey,), text: '지도', ),
-            Tab( icon: Icon( Icons.login, color: Colors.grey,), text: '마이페이지', ),
+            Tab( icon: Icon( Icons.home, color: Colors.grey,)),
+            Tab( icon: Icon( Icons.map, color: Colors.grey,)),
+            Tab( icon: Icon( Icons.login, color: Colors.grey,)),
           ],
         ),
       ),

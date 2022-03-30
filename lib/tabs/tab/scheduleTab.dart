@@ -72,7 +72,6 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
             Positioned(// 검색 버튼
               top: 30,
               child: Container(
-
                 child: SearchInputButton(),
                 width: 350,
                 height: 50,
@@ -87,7 +86,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (BuildContext context){
-                            return Card_Detail();
+                            return Card_Detail(name:list[0],number: list[2],address: list[1]);
                           }
                       ),
                       );

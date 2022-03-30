@@ -7,8 +7,12 @@ import 'doctorInfo.dart';
 import 'doctorLocation.dart';
 
 class DetailBody extends StatelessWidget {
+  final String name;
+  final String number;
+  final String address;
+
   const DetailBody({
-    Key? key,
+    Key? key,required this.name, required this.number, required this.address
   }) : super(key: key);
 
   @override
@@ -19,16 +23,16 @@ class DetailBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const DetailDoctorCard(),
+          DetailDoctorCard(name:name),
           const SizedBox(
             height: 15,
           ),
           Text(
-            '매장 설명',
+            '전화번호 :' + number,
             style: kTitleStyle,
           ),
           Text(
-            '----------------매장설명--------------------------------',
+            address,
             style: TextStyle(
               color: Color(MyColors.purple01),
               fontWeight: FontWeight.w500,

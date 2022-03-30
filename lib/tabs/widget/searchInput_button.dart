@@ -5,7 +5,7 @@ import 'package:untitled7/page/cloud_firestore.dart';
 class SearchInputButton extends StatelessWidget {
 
   SearchInputButton({
-    Key? key
+    Key? key,
   }) : super(key: key);
 
   @override

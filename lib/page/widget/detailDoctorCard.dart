@@ -2,8 +2,9 @@ import 'package:untitled7/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class DetailDoctorCard extends StatelessWidget {
+  final String name;
   const DetailDoctorCard({
-    Key? key,
+    Key? key, required this.name
   }) : super(key: key);
 
   @override
@@ -22,7 +23,7 @@ class DetailDoctorCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '매장명',
+                      name,
                       style: TextStyle(
                           color: Color(MyColors.header01),
                           fontWeight: FontWeight.w700),

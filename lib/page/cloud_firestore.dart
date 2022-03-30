@@ -17,7 +17,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[700],
+        backgroundColor: Colors.grey,
         elevation: 0,
         toolbarHeight: 40,
       ),
@@ -120,6 +120,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                         color: Color(MyColors.purple02),
                       ),
                     ),
+
                     const SizedBox(
                       width: 15,
                     ),
