@@ -46,7 +46,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
               onWebViewCreated: (WebViewController webviewController) {
                 _controller = webviewController;
 
-                Timer(Duration(seconds: 1), () {
+                Timer(Duration(milliseconds: 1000), () {
                   if (_controller != null) {
                     _controller!.runJavascriptReturningResult(
                         'window.fromFlutter("${widget.id},${widget.long},${widget.lat}")');
