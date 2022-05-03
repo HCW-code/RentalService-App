@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
         lat: "0",
         long: "0",
         id: "0"),
-    MypageTab(),
+        MypageTab(),
   ];
 
   @override
