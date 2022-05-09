@@ -28,41 +28,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Container();
   }
-
-
-
-
-
-// buildTextField(String hintText, bool obs, int num){
-//   return Form(
-//     key: _formKey,
-//     child: Container(
-//       color: Colors.blueGrey,
-//       child: TextFormField(
-//           style: TextStyle(color: Colors.white,),
-//           obscureText: obs ? _isObscure : false,
-//           decoration: InputDecoration(
-//             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//             hintText: hintText,
-//             hintStyle: TextStyle(color: Color(0xFF263238), fontWeight: FontWeight.w500),
-//             // errorStyle: TextStyle(color: Colors.yellow,),
-//             fillColor: Color(0xFF546E7A),
-//             filled: true,
-//             border: InputBorder.none,
-//             suffixIcon: obs ? IconButton(
-//               onPressed: (){ setState(() { _isObscure = !_isObscure; }); },
-//               icon: Icon(
-//                 _isObscure ? Icons.visibility_off : Icons.visibility, color: Colors.grey,),
-//             ) : null),
-//           validator: (value){
-//             if(value!.isEmpty) return '입력해주세요';
-//             return 'FUCK OFF';
-//           },
-//       ),
-//     ),
-//   );
-// }
 }
+
 
 
 
