@@ -12,7 +12,7 @@ class CloudFirestoreSearch extends StatefulWidget {
 }
 
 class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
-  String name = "";
+  String? name ="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,22 +25,76 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
         child: Stack(
           alignment: Alignment.center,
           children: [
+            Positioned(
+                top: 30,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(MyColors.bg),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Icon(
+                          Icons.search,
+                          color: Color(MyColors.purple02),
+                        ),
+                      ),
+
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '매장/지역으로 검색하세요',
+                            hintStyle: TextStyle(
+                                fontSize: 15,
+                                color: Color(MyColors.purple01),
+                                fontWeight: FontWeight.w700),
+                          ),
+                          cursorColor: Colors.indigoAccent,
+                          onChanged: (val) {
+                            setState((){
+                              name = val;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  width: 350,
+                  height: 50,
+                )
+            ),
             Container(
               padding: EdgeInsets.only(top:70),
               child: StreamBuilder<QuerySnapshot>(
-                stream: (name !=null)
+                stream: (name != null)
                     ? FirebaseFirestore.instance
                     .collection("test")
                     .where("searchKeywords", arrayContains: name)
                     .snapshots()
                     : FirebaseFirestore.instance.collection("test").snapshots(),
                 builder: (context, snapshot){
+                  if(snapshot.data ==null){
+                    return Container(
+                      child: Center(
+                        child: Text("loading"),
+                      ),
+                    );
+                  }
+                  else{
                   return (snapshot.connectionState == ConnectionState.waiting)
                       ? Center(child: CircularProgressIndicator())
                       :ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index){
-                      DocumentSnapshot data = snapshot.data!.docs[index];
+                      DocumentSnapshot? data = snapshot.data!.docs[index];
                       return Container(
                           padding: EdgeInsets.only(top:15, left: 15, right: 15),
                           child: Column(
@@ -100,54 +154,10 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                     },
                   );
                 }
+              }
           ),
             ),
-            Positioned(
-              top: 30,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(MyColors.bg),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 3),
-                      child: Icon(
-                        Icons.search,
-                        color: Color(MyColors.purple02),
-                      ),
-                    ),
 
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: '매장/지역으로 검색하세요',
-                          hintStyle: TextStyle(
-                              fontSize: 15,
-                              color: Color(MyColors.purple01),
-                              fontWeight: FontWeight.w700),
-                        ),
-                        cursorColor: Colors.indigoAccent,
-                        onChanged: (val) {
-                          setState((){
-                            name = val;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                width: 350,
-                height: 50,
-              )
-              ),
       ],
         ),
       ),
