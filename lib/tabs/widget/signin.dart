@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -26,7 +25,6 @@ class _SignInState extends State<SignIn> {
   String userEmail = '';
   String userPassword = '';
   bool _isObscure = true;
-  bool _check = false;
 
   Future<UserCredential> signInWithKaKao() async {
     final clientState = Uuid().v4();
@@ -35,8 +33,8 @@ class _SignInState extends State<SignIn> {
       'client_id': "710b65d3335de348a5a0b9795fec4ada",
       'response_mode': 'form_post',
       'redirect_uri':
-          'https://fir-daffy-approval.glitch.me/callbacks/kakao/sign_in',
-      //'scope': 'account_email profile',
+      'https://fir-daffy-approval.glitch.me/callbacks/kakao/sign_in',
+      // 'scope': 'account_email profile',
       'state': clientState,
     });
 
@@ -45,13 +43,13 @@ class _SignInState extends State<SignIn> {
         callbackUrlScheme: "webauthcallback"); //"applink"//"signinwithapple"
     final body = Uri.parse(result).queryParameters;
 
-    print(body["code"]);
+    // print(body["code"]);
 
     final tokenUrl = Uri.https('kauth.kakao.com', '/oauth/token', {
       'grant_type': 'authorization_code',
       'client_id': "710b65d3335de348a5a0b9795fec4ada",
       'redirect_uri':
-          'https://fir-daffy-approval.glitch.me/callbacks/kakao/sign_in',
+      'https://fir-daffy-approval.glitch.me/callbacks/kakao/sign_in',
       'code': body["code"],
     });
 
@@ -61,6 +59,7 @@ class _SignInState extends State<SignIn> {
     var response = await http.post(
         Uri.parse("https://fir-daffy-approval.glitch.me/callbacks/kakao/token"),
         body: {"accessToken": bodys['access_token']});
+
     return FirebaseAuth.instance.signInWithCustomToken(response.body);
   }
 
@@ -296,24 +295,22 @@ class _SignInState extends State<SignIn> {
                     ),
                   );
                 } else {
-                  StreamBuilder<QuerySnapshot>(
-                    stream: users,
-                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot){
-                      final data = snapshot.requireData;
-                      if(ListView.builder(
-                          itemCount: data.size,
-                          itemBuilder: (context, index){
-                            return Text("${data.docs[index]['email']}");
-                          }) !=  Text("${FirebaseAuth.instance.currentUser!.email}")
-                      )  {_check = true;}
-                     return SizedBox(height: 0,);
-                    }
-                  );
 
-                  if(_check){
-                    CollectionReference users = FirebaseFirestore.instance.collection('users');
-                    users.add({'name': "${snapshot.data.displayName}", 'email': "${snapshot.data.email}"});
+                  getDocs() async {
+                    bool _check = true;
+                    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("users").get();
+                    for (int i = 0; i < querySnapshot.docs.length; i++) {
+                      if(querySnapshot.docs[i]['email'] == FirebaseAuth.instance.currentUser!.email) {
+                        _check = false;
+                        break;
+                      }
+                    }
+                    if(_check){
+                      CollectionReference users = FirebaseFirestore.instance.collection('users');
+                      users.add({'name': "${FirebaseAuth.instance.currentUser!.displayName}", 'email': "${FirebaseAuth.instance.currentUser!.email}"});
+                    }
                   }
+                  getDocs();
 
                   Navigator.pop(context);
                   return MypageTab();
