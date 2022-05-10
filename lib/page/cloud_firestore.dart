@@ -76,10 +76,10 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
               child: StreamBuilder<QuerySnapshot>(
                 stream: (name != null)
                     ? FirebaseFirestore.instance
-                    .collection("test")
+                    .collection("USER_allow")
                     .where("searchKeywords", arrayContains: name)
                     .snapshots()
-                    : FirebaseFirestore.instance.collection("test").snapshots(),
+                    : FirebaseFirestore.instance.collection("USER_allow").snapshots(),
                 builder: (context, snapshot){
                   if(snapshot.data ==null){
                     return Container(
@@ -111,7 +111,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                       builder: (BuildContext context) => ScheduleTab(
                                         lat: data['위도'].toString(),
                                         long: data['경도'].toString(),
-                                        id: data['id'].toString(),
+                                        store_id: data['store_id'].toString(),
                                       ),
                                     ), (route) => false,
                                   );
@@ -127,19 +127,15 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                                           SizedBox(
                                             height: 10,
                                           ),
-                                          Text(data['name'],
+                                          Text(data['store_name'],
                                             style: TextStyle(
                                               color: Colors.black38,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold)),
-                                          Text(data['경도'].toString(),
+                                          Text(data['store_address'].toString(),
                                             style: TextStyle(
                                               color: Colors.black38,
                                               fontSize: 15,)),
-                                          Text(data['address'],
-                                              style: TextStyle(
-                                                color: Colors.black38,
-                                                fontSize: 15,)),
                                           SizedBox(
                                             height: 10,
                                           ),

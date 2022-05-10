@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
     ScheduleTab(
         lat: "0",
         long: "0",
-        id: "0"),
+        store_id: "0"),
         MypageTab(),
   ];
 

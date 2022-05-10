@@ -10,13 +10,13 @@ import 'package:untitled7/page/card_detail.dart';
 
 
 class ScheduleTab extends StatefulWidget {
-  final String id;
+  final String store_id;
   final String lat;
   final String long;
 
 
   const ScheduleTab({
-    Key? key,required this.id, required this.lat, required this.long
+    Key? key,required this.store_id, required this.lat, required this.long
   }) : super(key: key);
 
   @override
@@ -40,7 +40,8 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
 
           children: [
             WebView(//웹뷰 및 통신
-              initialUrl: 'https://cstone-3dc2f.web.app/',
+              //initialUrl: 'https://cstone-3dc2f.web.app/',
+              initialUrl: 'http://192.168.219.100:3000/',
               javascriptMode: JavascriptMode.unrestricted,
 
               onWebViewCreated: (WebViewController webviewController) {
@@ -49,7 +50,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                 Timer(Duration(milliseconds: 500), () {
                   if (_controller != null) {
                     _controller!.runJavascriptReturningResult(
-                        'window.fromFlutter("${widget.id},${widget.long},${widget.lat}")');
+                        'window.fromFlutter("${widget.store_id},${widget.lat},${widget.long}")');
                   }
                 });
               },
