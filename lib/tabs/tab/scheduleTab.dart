@@ -41,7 +41,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
           children: [
             WebView(//웹뷰 및 통신
               //initialUrl: 'https://cstone-3dc2f.web.app/',
-              initialUrl: 'http://172.30.1.2:3000/',
+              initialUrl: 'http://192.168.35.231:3000/',
               javascriptMode: JavascriptMode.unrestricted,
 
               onWebViewCreated: (WebViewController webviewController) {
