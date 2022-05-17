@@ -41,7 +41,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
           children: [
             WebView(//웹뷰 및 통신
               //initialUrl: 'https://cstone-3dc2f.web.app/',
-              initialUrl: 'http://192.168.35.231:3000/',
+              initialUrl: 'https://cstone-3dc2f.web.app/',
               javascriptMode: JavascriptMode.unrestricted,
 
               onWebViewCreated: (WebViewController webviewController) {
@@ -87,9 +87,9 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                           builder: (BuildContext context){
-                            return Card_Detail(name:list[0],number: list[2],address: list[1]);
+                            return Card_Detail(name:list[0], number: list[2],address: list[1]);
                           }
-                      ),
+                        ),
                       );
                     },
                     child: Card(

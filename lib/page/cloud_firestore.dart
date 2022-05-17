@@ -81,7 +81,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                     .snapshots()
                     : FirebaseFirestore.instance.collection("USER_allow").snapshots(),
                 builder: (context, snapshot){
-                  if(snapshot.data ==null){
+                  if(snapshot.data == null){
                     return Container(
                       child: Center(
                         child: Text("loading"),
