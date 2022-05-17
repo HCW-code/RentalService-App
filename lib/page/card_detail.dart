@@ -43,7 +43,6 @@ class _Card_Detail extends State<Card_Detail> {
                   if(snapshot.connectionState == ConnectionState.done &&
                       snapshot.hasData){
                     return Container(
-                      width: 300,
                       height: 250,
                       child: Image.network(
                         snapshot.data!,
