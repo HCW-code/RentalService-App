@@ -37,7 +37,7 @@ class _Card_Detail extends State<Card_Detail> {
             backgroundColor: Colors.grey,
             expandedHeight: 200,
             flexibleSpace: FutureBuilder(
-                future: storage.downloadURL(widget.number),
+                future: storage.downloadURL(widget.number, 0),
                 builder:  (BuildContext context,
                     AsyncSnapshot<String> snapshot){
                   if(snapshot.connectionState == ConnectionState.done &&

@@ -1,6 +1,8 @@
 import 'package:untitled7/utils/colors.dart';
 import 'package:untitled7/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled7/page/widget/storage_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'detailDoctorCard.dart';
 import 'doctorInfo.dart';
@@ -17,6 +19,7 @@ class DetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
     return Container(
       padding: const EdgeInsets.all(20),
 
@@ -28,11 +31,71 @@ class DetailBody extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
+
+        Row(
+            mainAxisAlignment:
+            MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: new FlatButton(
+                    onPressed: () => launch("tel://"+number),
+                    child: new Icon(Icons.call,
+                        color: Colors.blue[500], size: 50),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    "전화하기",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: new FlatButton(
+                    onPressed: () => launch("https://map.kakao.com/"),
+                    child: new Icon(Icons.place,
+                        color: Colors.blue[500], size: 50),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    "지도 검색",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
           Text(
-            '전화번호 :' + number,
-            style: kTitleStyle,
+            "전화번호 : " + number,
+            style: TextStyle(
+              color: Color(MyColors.purple01),
+              fontWeight: FontWeight.normal,
+              height: 1.5,
+            ),
           ),
-          Text(
+         Text(
             address,
             style: TextStyle(
               color: Color(MyColors.purple01),
@@ -40,26 +103,44 @@ class DetailBody extends StatelessWidget {
               height: 1.5,
             ),
           ),
+
+          DoctorInfo(number:number),
+
           const SizedBox(
-            height: 25,
-          ),
-          const SizedBox(
-            height: 15,
+            height: 5,
           ),
 
-          const DoctorInfo(),
-          const SizedBox(
-            height: 30,
+          Center(
+            child: Text(
+              '매장 가격 사진',
+              style: TextStyle( color: Colors.black, fontWeight: FontWeight.bold )
+
+            ),
           ),
 
-          Text(
-            'Location',
-            style: kTitleStyle,
-          ),
           const SizedBox(
-            height: 25,
+            height: 5,
           ),
-          const DoctorLocation(),
+          FutureBuilder(
+              future: storage.downloadURL(number, 1),
+              builder:  (BuildContext context,
+                  AsyncSnapshot<String> snapshot){
+                if(snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData){
+                  return Container(
+                    height: 250,
+                    child: Image.network(
+                      snapshot.data!,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                }
+                if(snapshot.connectionState == ConnectionState.waiting || snapshot.hasData){
+                  return CircularProgressIndicator();
+                }
+                return Container();
+              }
+          ),
           const SizedBox(
             height: 25,
           ),

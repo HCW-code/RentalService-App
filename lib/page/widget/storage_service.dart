@@ -29,9 +29,12 @@ class Storage{
   //   });
   //   return results;
   // }
-  Future<String> downloadURL(String folderName) async{
-    print(folderName);
-    String downloadURL = await storage.ref('$folderName/store_picture').getDownloadURL();
+  Future<String> downloadURL(String folderName, int price) async{
+    print(price);
+      String downloadURL = await storage.ref('$folderName/store_picture').getDownloadURL();
+    if(price == 1)
+      downloadURL = await storage.ref('$folderName/store_price').getDownloadURL();
+
 
     return downloadURL;
   }

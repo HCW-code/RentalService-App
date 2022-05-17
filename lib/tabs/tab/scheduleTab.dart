@@ -37,7 +37,6 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
-
           children: [
             WebView(//웹뷰 및 통신
               //initialUrl: 'https://cstone-3dc2f.web.app/',

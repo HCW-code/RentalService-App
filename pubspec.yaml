@@ -43,6 +43,7 @@ dependencies:
   flutter_web_auth: ^0.4.1
   uuid: ^3.0.6
   http: ^0.13.4
+  url_launcher: ^6.1.2
 
 dev_dependencies:
   flutter_test:

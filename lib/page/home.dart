@@ -22,6 +22,7 @@ class _HomeState extends State<Home> {
   final _navigatorKeyList = List.generate(3, (index) => GlobalKey<NavigatorState>());
   int _currentIndex = 0;
 
+
   final _pages = [HomeTab(),
     ScheduleTab(
         lat: "0",
@@ -35,30 +36,38 @@ class _HomeState extends State<Home> {
 
     return DefaultTabController(
         length: 3,
-        child: Scaffold(
-        body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: _pages.map( (page) {
-            return CustomNavigator( page: page);
+        child: WillPopScope(
+          onWillPop: () {
+            setState(() {
+
+          });
+            return Future(() => false);
           },
-          ).toList(),
-        ),
-        bottomNavigationBar: TabBar(
-          indicatorPadding: EdgeInsets.only(left: 30.0, right: 30.0),
-          indicatorColor: Colors.grey,
-          //tab 하단 indicator weight
-          indicatorWeight: 5,
-          //label color
-          isScrollable: false,
-          labelColor: Colors.grey,
-          onTap: (index) => setState(() { _currentIndex = index; }),
-          tabs: const [
-            Tab( icon: Icon( Icons.home, color: Colors.grey,)),
-            Tab( icon: Icon( Icons.map, color: Colors.grey,)),
-            Tab( icon: Icon( Icons.login, color: Colors.grey,)),
-          ],
-        ),
+          child: Scaffold(
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: _pages.map( (page) {
+              return CustomNavigator( page: page);
+            },
+            ).toList(),
+          ),
+          bottomNavigationBar: TabBar(
+            indicatorPadding: EdgeInsets.only(left: 30.0, right: 30.0),
+            indicatorColor: Colors.grey,
+            //tab 하단 indicator weight
+            indicatorWeight: 5,
+            //label color
+            isScrollable: false,
+            labelColor: Colors.grey,
+            onTap: (index) => setState(() { _currentIndex = index; }),
+            tabs: const [
+              Tab( icon: Icon( Icons.home, color: Colors.grey,)),
+              Tab( icon: Icon( Icons.map, color: Colors.grey,)),
+              Tab( icon: Icon( Icons.login, color: Colors.grey,)),
+            ],
+          ),
       ),
+        ),
     );
   }
 }
