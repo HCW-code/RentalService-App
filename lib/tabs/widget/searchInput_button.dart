@@ -34,10 +34,10 @@ class SearchInputButton extends StatelessWidget {
             child: TextButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (BuildContext context){
-                      return CloudFirestoreSearch();
-                    }
+                    builder: (context) => CloudFirestoreSearch()
+
                   ),
+
                 );
               },
               child: Row(
