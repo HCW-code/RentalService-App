@@ -99,7 +99,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 100,
+                            width: 50,
                           ),
                           Column(
                               crossAxisAlignment : CrossAxisAlignment.start,

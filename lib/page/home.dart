@@ -38,7 +38,6 @@ class _HomeState extends State<Home> {
         child: WillPopScope(
           onWillPop: () {
             setState(() {
-
           });
             return Future(() => false);
           },
