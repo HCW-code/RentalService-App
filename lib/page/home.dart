@@ -112,29 +112,6 @@ class _HomeState extends State<Home> {
     MypageTab(),
   ];
 
-
-  Future<dynamic> _onBackPressed(){
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context){
-          return AlertDialog(
-            title: Text("Do you want to exit the app?"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("NO"),
-                onPressed: ()=>Navigator.pop(context, false),
-              ),
-              FlatButton(
-                child: Text("yes"),
-                onPressed: ()=>Navigator.pop(context, true),
-              )
-            ],
-          );
-        }
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
