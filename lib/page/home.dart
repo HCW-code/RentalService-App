@@ -100,6 +100,7 @@ List<Map> navigationBarItems = [
 ];
 
 class _HomeState extends State<Home> {
+  DateTime? currentBackPressTime;
   final _navigatorKeyList = List.generate(3, (index) => GlobalKey<NavigatorState>());
   int _currentIndex = 0;
 
@@ -111,15 +112,25 @@ class _HomeState extends State<Home> {
         store_id: "0"),
     MypageTab(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: WillPopScope(
         onWillPop: () async {
-          return !(await _navigatorKeyList[_currentIndex].currentState!.maybePop());
-        },
+          DateTime now = DateTime.now();
+          if(currentBackPressTime == null ||
+              now.difference(currentBackPressTime!) > Duration(seconds : 1)){
+            currentBackPressTime = now;
+            final _msg = '뒤로 버튼 한번더 누르면 종료';
+            final snackBar = SnackBar(content: Text(_msg));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              return Future.value(false);
+              return !(await _navigatorKeyList[_currentIndex].currentState!.maybePop());
+          }
+          return Future.value(true);
+
+         },
         child: Scaffold(
           body: IndexedStack(
             index: _currentIndex,
@@ -157,4 +168,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
 
