@@ -84,10 +84,8 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                 child: Container(
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (BuildContext context){
-                            return Card_Detail(name:list[0], number: list[2],address: list[1]);
-                          }
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Card_Detail(name:list[0], number: list[2],address: list[1])
                         ),
                       );
                     },

@@ -24,45 +24,45 @@ class _Card_Detail extends State<Card_Detail> {
   Widget build(BuildContext context) {
     final Storage storage = Storage();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[700],
-        elevation: 0,
-        toolbarHeight: 0,
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            title: Text('매장 상세정보'),
-            backgroundColor: Colors.grey,
-            expandedHeight: 200,
-            flexibleSpace: FutureBuilder(
-                future: storage.downloadURL(widget.number, 0),
-                builder:  (BuildContext context,
-                    AsyncSnapshot<String> snapshot){
-                  if(snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData){
-                    return Container(
-                      height: 250,
-                      child: Image.network(
-                        snapshot.data!,
-                        fit: BoxFit.cover,
-                      ),
-                    );
+        appBar: AppBar(
+          backgroundColor: Colors.grey[700],
+          elevation: 0,
+          toolbarHeight: 0,
+        ),
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              title: Text('매장 상세정보'),
+              backgroundColor: Colors.grey,
+              expandedHeight: 200,
+              flexibleSpace: FutureBuilder(
+                  future: storage.downloadURL(widget.number, 0),
+                  builder:  (BuildContext context,
+                      AsyncSnapshot<String> snapshot){
+                    if(snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData){
+                      return Container(
+                        height: 250,
+                        child: Image.network(
+                          snapshot.data!,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    }
+                    if(snapshot.connectionState == ConnectionState.waiting || snapshot.hasData){
+                      return CircularProgressIndicator();
+                    }
+                    return Container();
                   }
-                  if(snapshot.connectionState == ConnectionState.waiting || snapshot.hasData){
-                    return CircularProgressIndicator();
-                  }
-                  return Container();
-                }
+              )
+            ),
+            SliverToBoxAdapter(
+              child: DetailBody(name: widget.name, number: widget.number, address: widget.address),
             )
-          ),
-          SliverToBoxAdapter(
-            child: DetailBody(name: widget.name, number: widget.number, address: widget.address),
-          )
-        ],
-      ),
-    );
+          ],
+        ),
+      );
   }
 }
 

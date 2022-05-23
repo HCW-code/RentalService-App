@@ -19,7 +19,7 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
         appBar: AppBar(
           backgroundColor: Colors.grey,
           elevation: 0,
-          toolbarHeight: 40,
+          toolbarHeight: 0,
         ),
         body: SafeArea(
           child: Stack(

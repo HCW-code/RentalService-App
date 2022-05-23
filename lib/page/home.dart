@@ -3,9 +3,90 @@ import 'package:untitled7/tabs/tab/scheduleTab.dart';
 import 'package:untitled7/tabs/tab/mypageTab.dart';
 import 'package:untitled7/utils/colors.dart';
 import 'package:flutter/material.dart';
+//
+// class Home extends StatefulWidget {
+//
+//
+//   const Home({Key? key}) : super(key: key);
+//   @override
+//   _HomeState createState() => new _HomeState();
+// }
+//
+// List<Map> navigationBarItems = [
+//   {'icon': Icons.home, 'index': 0},
+//   {'icon': Icons.map, 'index': 1},
+//   {'icon': Icons.login, 'index': 2},
+// ];
+//
+// class _HomeState extends State<Home> {
+//   final _navigatorKeyList = List.generate(3, (index) => GlobalKey<NavigatorState>());
+//   int _currentIndex = 0;
+//
+//   final _pages = [
+//     HomeTab(),
+//     ScheduleTab(
+//         lat: "0",
+//         long: "0",
+//         store_id: "0"),
+//         MypageTab(),
+//   ];
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return DefaultTabController(
+//         length: 3,
+//         child: WillPopScope(
+//           onWillPop: () {
+//             setState(() {
+//
+//             });
+//             return Future(() => false);
+//           },
+//           child: Scaffold(
+//             body: TabBarView(
+//               physics: NeverScrollableScrollPhysics(),
+//               children: _pages.map( (page) {
+//                 return CustomNavigator( page: page);
+//               },
+//               ).toList(),
+//             ),
+//             bottomNavigationBar: TabBar(
+//               indicatorPadding: EdgeInsets.only(left: 30.0, right: 30.0),
+//               indicatorColor: Colors.grey,
+//               //tab 하단 indicator weight
+//               indicatorWeight: 5,
+//               //label color
+//               isScrollable: false,
+//               labelColor: Colors.grey,
+//               onTap: (index) => setState(() { _currentIndex = index; }),
+//               tabs: const [
+//                 Tab( icon: Icon( Icons.home, color: Colors.grey,)),
+//                 Tab( icon: Icon( Icons.map, color: Colors.grey,)),
+//                 Tab( icon: Icon( Icons.login, color: Colors.grey,)),
+//               ],
+//             ),
+//       ),
+//         ),
+//     );
+//   }
+// }
+//
+// class CustomNavigator extends StatefulWidget {
+//   final Widget page;
+//   const CustomNavigator({Key? key, required this.page}) : super(key: key);
+//   @override _CustomNavigatorState createState() => _CustomNavigatorState();
+// }
+//
+// class _CustomNavigatorState extends State<CustomNavigator>{
+//   @override Widget build(BuildContext context) {
+//     return Navigator(
+//       onGenerateRoute: (_) => MaterialPageRoute(builder: (context) => widget.page),
+//     );
+//   }
+// }
+
 
 class Home extends StatefulWidget {
-
 
   const Home({Key? key}) : super(key: key);
   @override
@@ -22,64 +103,81 @@ class _HomeState extends State<Home> {
   final _navigatorKeyList = List.generate(3, (index) => GlobalKey<NavigatorState>());
   int _currentIndex = 0;
 
-
-  final _pages = [HomeTab(),
+  final _pages = [
+    HomeTab(),
     ScheduleTab(
         lat: "0",
         long: "0",
         store_id: "0"),
-        MypageTab(),
+    MypageTab(),
   ];
+
+
+  Future<dynamic> _onBackPressed(){
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("Do you want to exit the app?"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("NO"),
+                onPressed: ()=>Navigator.pop(context, false),
+              ),
+              FlatButton(
+                child: Text("yes"),
+                onPressed: ()=>Navigator.pop(context, true),
+              )
+            ],
+          );
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
-        child: WillPopScope(
-          onWillPop: () {
-            setState(() {
-          });
-            return Future(() => false);
-          },
-          child: Scaffold(
-          body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: _pages.map( (page) {
-              return CustomNavigator( page: page);
-            },
-            ).toList(),
+      length: 3,
+      child: WillPopScope(
+        onWillPop: () async {
+          return !(await _navigatorKeyList[_currentIndex].currentState!.maybePop());
+        },
+        child: Scaffold(
+          body: IndexedStack(
+            index: _currentIndex,
+            children: _pages.map((page) {
+              int index = _pages.indexOf(page);
+              return Navigator(
+                key: _navigatorKeyList[index],
+                onGenerateRoute: (_) {
+                  return MaterialPageRoute(builder: (context) => page);
+                },
+              );
+            }).toList(),
           ),
-          bottomNavigationBar: TabBar(
-            indicatorPadding: EdgeInsets.only(left: 30.0, right: 30.0),
-            indicatorColor: Colors.grey,
-            //tab 하단 indicator weight
-            indicatorWeight: 5,
-            //label color
-            isScrollable: false,
-            labelColor: Colors.grey,
-            onTap: (index) => setState(() { _currentIndex = index; }),
-            tabs: const [
-              Tab( icon: Icon( Icons.home, color: Colors.grey,)),
-              Tab( icon: Icon( Icons.map, color: Colors.grey,)),
-              Tab( icon: Icon( Icons.login, color: Colors.grey,)),
+          bottomNavigationBar: BottomNavigationBar(
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.grey),
+            selectedItemColor: Colors.grey[700],
+            currentIndex: _currentIndex,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, color: Colors.grey),
+                label: '홈', ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.map, color: Colors.grey),
+                label: '지도',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.login, color: Colors.grey),
+                label: '마이페이지',
+              ),
             ],
+            onTap: (index) => setState(() => _currentIndex = index),
           ),
-      ),
         ),
+      ),
     );
   }
 }
 
-class CustomNavigator extends StatefulWidget {
-  final Widget page;
-  const CustomNavigator({Key? key, required this.page}) : super(key: key);
-  @override _CustomNavigatorState createState() => _CustomNavigatorState();
-}
-
-class _CustomNavigatorState extends State<CustomNavigator>{
-  @override Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute(builder: (context) => widget.page),
-    );
-  }
-}

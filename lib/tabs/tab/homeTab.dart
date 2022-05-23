@@ -5,7 +5,8 @@ import 'package:untitled7/tabs/widget/userIntro.dart';
 import 'package:untitled7/utils/colors.dart';
 import 'package:untitled7/utils/styles.dart';
 import 'package:flutter/material.dart';
-
+import 'package:untitled7/tabs/tab/scheduleTab.dart';
+import 'package:untitled7/page/home.dart';
 
 class HomeTab extends StatelessWidget  {
 
@@ -37,7 +38,7 @@ class HomeTab extends StatelessWidget  {
             ),
             AppointmentCard(
               onTap: (){
-                DefaultTabController.of(context)?.animateTo(1);
+                Home();
               }
             ),
             const SizedBox(
