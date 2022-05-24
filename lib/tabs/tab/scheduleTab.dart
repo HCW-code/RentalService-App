@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:http/http.dart';
 import 'package:untitled7/utils/colors.dart';
 import 'package:untitled7/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:untitled7/tabs/widget/searchInput_button.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:untitled7/page/card_detail.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 class ScheduleTab extends StatefulWidget {
@@ -28,6 +30,20 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
   bool clicked = false;
   List list=["name", "name", "name", "name"];
 
+  void getlocation() async{
+    Position position =
+        await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+        print(position.latitude);
+        print(position.longitude * -1);
+    if (_controller != null) {
+      _controller!.runJavascriptReturningResult(
+      'window.gotolocation("${position.latitude},${position.longitude}")');
+    }
+
+
+
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -40,7 +56,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
           children: [
             WebView(//웹뷰 및 통신
               //initialUrl: 'https://cstone-3dc2f.web.app/',
-              initialUrl: 'https://cstone-3dc2f.web.app/',
+              initialUrl: 'http://172.30.1.4:3000/',
               javascriptMode: JavascriptMode.unrestricted,
 
               onWebViewCreated: (WebViewController webviewController) {
@@ -50,6 +66,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                   if (_controller != null) {
                     _controller!.runJavascriptReturningResult(
                         'window.fromFlutter("${widget.store_id},${widget.lat},${widget.long}")');
+                        //'window.fromFlutter1()');
                   }
                 });
               },
@@ -76,6 +93,24 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                 width: 350,
                 height: 50,
               ),
+            ),Positioned(// 검색 버튼
+              bottom: 10,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom( primary: Color(MyColors.bg)),
+                onPressed: () {
+                  getlocation();
+                  // Timer(Duration(milliseconds: 500), () {
+                  //   if (_controller != null) {
+                  //     _controller!.runJavascriptReturningResult(
+                  //         'window.fromFlutter1()'
+                  //
+                  //     );
+                  //   }
+                  // });
+
+                },
+                child: Text("현위치", style: TextStyle(color : Color(MyColors.purple01),)),
+              )
             ),
             Visibility( //마커 클릭시 카드 생성
               visible: clicked,
@@ -103,7 +138,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                               crossAxisAlignment : CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                                 Text(list[0],
                                     style: TextStyle(
@@ -111,21 +146,22 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
                                 SizedBox(
-                                  height: 10,
+                                  height: 20,
                                 ),
                                 Text(list[1],
                                     style: TextStyle(
                                       color: Colors.black38,
                                       fontSize: 15,)),
+
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Text(list[2],
                                     style: TextStyle(
                                       color: Colors.black38,
                                       fontSize: 15,)),
                                 SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  height: 10,
+                                  height: 20,
                                 ),
                               ]
                           ),
