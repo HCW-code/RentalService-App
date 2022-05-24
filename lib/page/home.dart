@@ -122,13 +122,14 @@ class _HomeState extends State<Home> {
           if(currentBackPressTime == null ||
               now.difference(currentBackPressTime!) > Duration(seconds : 1)){
             currentBackPressTime = now;
-            final _msg = '뒤로 버튼 한번더 누르면 종료';
+            final _msg = 'click one more to exit this screen';
             final snackBar = SnackBar(content: Text(_msg));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
               return Future.value(false);
-              return !(await _navigatorKeyList[_currentIndex].currentState!.maybePop());
+              
           }
-          return Future.value(true);
+          return !(await _navigatorKeyList[_currentIndex].currentState!.maybePop());
+          //return Future.value(true);
 
          },
         child: Scaffold(
