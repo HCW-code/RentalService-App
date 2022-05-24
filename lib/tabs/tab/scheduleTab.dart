@@ -31,6 +31,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
   List list=["name", "name", "name", "name"];
 
   void getlocation() async{
+    LocationPermission permission = await Geolocator.requestPermission();
     Position position =
         await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -40,8 +41,6 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
       _controller!.runJavascriptReturningResult(
       'window.gotolocation("${position.latitude},${position.longitude}")');
     }
-
-
 
   }
 
@@ -55,8 +54,8 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
           alignment: Alignment.center,
           children: [
             WebView(//웹뷰 및 통신
-              //initialUrl: 'https://cstone-3dc2f.web.app/',
-              initialUrl: 'http://172.30.1.4:3000/',
+              initialUrl: 'https://cstone-3dc2f.web.app/',
+              //initialUrl: 'http://172.30.1.4:3000/',
               javascriptMode: JavascriptMode.unrestricted,
 
               onWebViewCreated: (WebViewController webviewController) {

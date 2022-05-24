@@ -37,9 +37,7 @@ class HomeTab extends StatelessWidget  {
               height: 20,
             ),
             AppointmentCard(
-              onTap: (){
-                Home();
-              }
+              onTap: (){}
             ),
             const SizedBox(
               height: 20,
