@@ -144,4 +144,3 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
     );
   }
 }
-
