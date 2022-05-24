@@ -41,7 +41,6 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
       _controller!.runJavascriptReturningResult(
       'window.gotolocation("${position.latitude},${position.longitude}")');
     }
-
   }
 
   @override

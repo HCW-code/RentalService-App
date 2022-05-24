@@ -9,9 +9,11 @@ import 'package:untitled7/tabs/tab/scheduleTab.dart';
 import 'package:untitled7/page/home.dart';
 
 class HomeTab extends StatelessWidget  {
+  final void Function() onPressedScheduleCard;
 
   const HomeTab({
     Key? key,
+    required this.onPressedScheduleCard,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class HomeTab extends StatelessWidget  {
               height: 20,
             ),
             AppointmentCard(
-              onTap: (){}
+              onTap: onPressedScheduleCard,
             ),
             const SizedBox(
               height: 20,

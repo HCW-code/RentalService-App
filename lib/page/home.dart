@@ -104,16 +104,22 @@ class _HomeState extends State<Home> {
   final _navigatorKeyList = List.generate(3, (index) => GlobalKey<NavigatorState>());
   int _currentIndex = 0;
 
-  final _pages = [
-    HomeTab(),
-    ScheduleTab(
-        lat: "0",
-        long: "0",
-        store_id: "0"),
-    MypageTab(),
-  ];
+  void goToSchedule() {
+    setState(() {
+      _currentIndex = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _pages = [
+      HomeTab(onPressedScheduleCard : goToSchedule),
+      ScheduleTab(
+          lat: "0",
+          long: "0",
+          store_id: "0"),
+      MypageTab(),
+    ];
     return DefaultTabController(
       length: 3,
       child: WillPopScope(
