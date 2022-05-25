@@ -9,9 +9,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:untitled7/page/card_detail.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:untitled7/utils/colors.dart';
 
 
 class ScheduleTab extends StatefulWidget {
+
   final String store_id;
   final String lat;
   final String long;
@@ -26,6 +28,7 @@ class ScheduleTab extends StatefulWidget {
 }
 
 class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClientMixin {
+
   WebViewController? _controller;
   bool clicked = false;
   List list=["name", "name", "name", "name"];
@@ -42,6 +45,17 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
       'window.gotolocation("${position.latitude},${position.longitude}")');
     }
   }
+  void gotolocation(latitude, longitude) async{
+    print(latitude);
+    print(longitude);
+    if (_controller != null) {
+      _controller!.runJavascriptReturningResult(
+          'window.gotolocation("${latitude},${longitude}")');
+    }
+  }
+
+
+
 
   @override
   bool get wantKeepAlive => true;
@@ -54,7 +68,7 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
           children: [
             WebView(//웹뷰 및 통신
               initialUrl: 'https://cstone-3dc2f.web.app/',
-              //initialUrl: 'http://172.30.1.4:3000/',
+              //initialUrl: 'http://192.168.35.231:3000/',
               javascriptMode: JavascriptMode.unrestricted,
 
               onWebViewCreated: (WebViewController webviewController) {
@@ -62,7 +76,9 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
 
                 Timer(Duration(milliseconds: 500), () {
                   if (_controller != null) {
+                    print(widget.lat + "   " +widget.long);
                     _controller!.runJavascriptReturningResult(
+
                         'window.fromFlutter("${widget.store_id},${widget.lat},${widget.long}")');
                         //'window.fromFlutter1()');
                   }
@@ -93,22 +109,172 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
               ),
             ),Positioned(// 검색 버튼
               bottom: 10,
+              left: 30,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom( primary: Color(MyColors.bg)),
                 onPressed: () {
                   getlocation();
-                  // Timer(Duration(milliseconds: 500), () {
-                  //   if (_controller != null) {
-                  //     _controller!.runJavascriptReturningResult(
-                  //         'window.fromFlutter1()'
-                  //
-                  //     );
-                  //   }
-                  // });
-
                 },
-                child: Text("현위치", style: TextStyle(color : Color(MyColors.purple01),)),
+                child: Icon(Icons.my_location, color: Colors.grey)
+                //Text("현위치", style: TextStyle(color : Color(MyColors.purple01),)),
               )
+            ),
+            Positioned(// 검색 버튼
+                bottom: 10,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom( primary: Color(MyColors.bg)),
+                  onPressed: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 200,
+                          color: Colors.grey[300],
+                          child:  Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+
+                                  Row(
+                                    mainAxisAlignment : MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('비발디'),
+                                        onPressed: () {
+                                          gotolocation(37.649157, 127.686948);
+                                        }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('하이원'),
+                                          onPressed: () {
+                                            gotolocation(37.208466, 128.829591);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text(
+                                          '용평',
+                                        ),
+                                          onPressed: () {
+                                            gotolocation(37.639984, 128.677333);
+                                          }
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment : MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('곤지암'),
+                                          onPressed: () {
+                                            gotolocation(37.335944, 127.294889);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('휘닉스'),
+                                          onPressed: () {
+                                            gotolocation(37.581409, 128.325604);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('지산'),
+                                          onPressed: () {
+                                            gotolocation(37.218373, 127.342751);
+                                          }
+                                      )
+                                    ],
+                                  ),Row(
+                                    mainAxisAlignment : MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('베어스'),
+                                          onPressed: () {
+                                            gotolocation(37.797075, 127.248787);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('오크밸리'),
+                                          onPressed: () {
+                                            gotolocation(37.403965, 127.809803);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('무주'),
+                                          onPressed: () {
+                                            gotolocation(35.891650, 127.740974);
+                                          }
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment : MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('엘리시안'),
+                                          onPressed: () {
+                                            gotolocation(37.823482, 127.588563);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('웰리힐리'),
+                                          onPressed: () {
+                                            gotolocation(37.490399, 128.249271);
+                                          }
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: Color(MyColors.purple02),
+                                        ),
+                                        child: const Text('에덴벨리'),
+                                          onPressed: () {
+                                            gotolocation(37.823482, 127.588563);
+                                          }
+                                      )
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                        );
+                      },
+                    );
+                  },
+                  child: Text("스키장 목록", style: TextStyle(color : Color(MyColors.purple01),)),
+                )
             ),
             Visibility( //마커 클릭시 카드 생성
               visible: clicked,

@@ -39,7 +39,20 @@ class HomeTab extends StatelessWidget  {
               height: 20,
             ),
             AppointmentCard(
+              //onTap: onPressedScheduleCard,
               onTap: onPressedScheduleCard,
+                // (){
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => ScheduleTab(
+                //       lat: "37.640526",
+                //       long: "127.674245",
+                //       store_id: "0",
+                //     ),
+                //   ), (route) => false,
+                // );
+              //},
             ),
             const SizedBox(
               height: 20,
