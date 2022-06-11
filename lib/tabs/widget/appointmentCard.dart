@@ -17,7 +17,7 @@ class AppointmentCard extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(MyColors.primary),
+            color: Colors.blue[500],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Material(
@@ -29,61 +29,22 @@ class AppointmentCard extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const CircleAvatar(
                           backgroundImage: AssetImage('assets/ski_icon.png'),
+                          radius: 40.0,
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('이름',
-                                style: TextStyle(color: Colors.white)),
-                            const SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              '정보',
-                              style: TextStyle(color: Color(MyColors.text01)),
-                            ),
-                          ],
-                        ),
+                        const Text('장비 렌탈샵\n      \n비교/검색하기',
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                       ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const ScheduleCard(),
                   ],
                 ),
               ),
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          width: double.infinity,
-          height: 10,
-          decoration: BoxDecoration(
-            color: Color(MyColors.bg02),
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 40),
-          width: double.infinity,
-          height: 10,
-          decoration: BoxDecoration(
-            color: Color(MyColors.bg03),
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
             ),
           ),
         ),
