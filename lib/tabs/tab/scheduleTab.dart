@@ -54,9 +54,6 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
     }
   }
 
-
-
-
   @override
   bool get wantKeepAlive => true;
   Widget build(BuildContext context) {
@@ -76,11 +73,8 @@ class _ScheduleTabState extends State<ScheduleTab> with AutomaticKeepAliveClient
 
                 Timer(Duration(milliseconds: 500), () {
                   if (_controller != null) {
-                    print(widget.lat + "   " +widget.long);
                     _controller!.runJavascriptReturningResult(
-
                         'window.fromFlutter("${widget.store_id},${widget.lat},${widget.long}")');
-                        //'window.fromFlutter1()');
                   }
                 });
               },

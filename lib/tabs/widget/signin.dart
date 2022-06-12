@@ -262,26 +262,28 @@ class _SignInState extends State<SignIn> {
                           height: 35,
                         ),
                         GestureDetector(
-                          onTap: signInWithKaKao,
-                          child: Container(
+                          onTap: (){Navigator.pop(context);
+                                      signInWithKaKao();},
+                            child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: 50,
                             decoration: BoxDecoration(color: Colors.yellow),
                             child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      alignment: Alignment.centerRight,
-                                      child: ImageIcon(
-                                          AssetImage('assets/kakao.png'))),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text('카카오톡으로 로그인',
-                                        style: TextStyle(
+                            children: [
+                            Expanded(
+                            flex: 1,
+                            child: Container(
+                            alignment: Alignment.centerRight,
+                            child: ImageIcon(
+                            AssetImage('assets/kakao.png'))),
+                            ),
+                            Expanded(
+                            flex: 7,
+                            child: Container(
+                            alignment: Alignment.center,
+                            child: Text('카카오톡으로 로그인',
+                            style: TextStyle(
+
                                             color: Colors.black54,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w900)),
@@ -295,7 +297,6 @@ class _SignInState extends State<SignIn> {
                     ),
                   );
                 } else {
-
                   getDocs() async {
                     bool _check = true;
                     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("users").get();
@@ -311,7 +312,6 @@ class _SignInState extends State<SignIn> {
                     }
                   }
                   getDocs();
-
                   Navigator.pop(context);
                   return MypageTab();
                 }
